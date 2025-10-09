@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 export default function Header({ data }) {
   if (!data) return null;
-  console.log(data);
 
   const {
     title,
@@ -27,15 +26,17 @@ export default function Header({ data }) {
   };
 
   return (
-    <div className="group relative h-96 w-full overflow-hidden">
+    <div className="group relative h-92 w-full overflow-hidden">
       {/* Background Image Layer */}
       <div className="absolute inset-0">
         <img
           src={`https://image.tmdb.org/t/p/original${backdrop_path || poster_path}`}
           alt={title || original_title || name}
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+        {/* Overlay (for text readability) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-100 transition-opacity duration-300"></div>
       </div>
 
       {/* Text Content Layer */}
