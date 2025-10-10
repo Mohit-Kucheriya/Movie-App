@@ -8,5 +8,5 @@
 }
 
 body {
-  @apply font-Parkinsans bg-zinc-900 text-zinc-50;
+  @apply font-Parkinsans bg-zinc-900 text-zinc-50 ;
 }

@@ -8,31 +8,30 @@ export default function Main() {
   const [wallpaper, setWallpaper] = useState(null);
   const [trending, setTrending] = useState([]);
 
-  const handleWallpaper = async () => {
-    try {
-      const { data } = await axios.get(`trending/all/day`);
-      let randomWallpaperData =
-        data.results[Math.floor(Math.random() * data.results.length)];
-      setWallpaper(randomWallpaperData);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleTrending = async () => {
-    try {
-      const { data } = await axios.get(`trending/all/day`);
-      setTrending(data.results);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
+    const handleWallpaper = async () => {
+      try {
+        const { data } = await axios.get(`trending/all/day`);
+        let randomWallpaperData =
+          data.results[Math.floor(Math.random() * data.results.length)];
+        setWallpaper(randomWallpaperData);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     !wallpaper && handleWallpaper();
   }, [wallpaper]);
 
   useEffect(() => {
+    const handleTrending = async () => {
+      try {
+        const { data } = await axios.get(`trending/all/day`);
+        setTrending(data.results);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     handleTrending();
   }, []);
 

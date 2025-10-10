@@ -26,7 +26,7 @@ export default function SideNav() {
           Latest Feed
         </h2>
         <div className="flex flex-col gap-3 text-zinc-300">
-          <SideNavLink text="Trending" icon={<RiFireFill />} />
+          <SideNavLink text="Trending" icon={<RiFireFill />} to="/trending" />
           <SideNavLink text="Popular" icon={<RiMagicFill />} />
           <SideNavLink text="Movies" icon={<RiMovie2Fill />} />
           <SideNavLink text="Tv Shows" icon={<RiTvFill />} />
