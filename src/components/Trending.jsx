@@ -4,22 +4,43 @@ import { Link } from "react-router-dom";
 import Card from "../ui/Card";
 import SelectDropdown from "../ui/SelectDropdown";
 import { TiArrowBack } from "react-icons/ti";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Trending() {
   const [trending, setTrending] = useState([]);
   const [category, setCategory] = useState("all");
   const [duration, setDuration] = useState("day");
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const handleTrending = async () => {
+    try {
+      const { data } = await axios.get(
+        `trending/${category}/${duration}?page=${page}`,
+      );
+      if (data.results.length > 0) {
+        setTrending((prevTrending) => [...prevTrending, ...data.results]);
+        setPage((prevPage) => prevPage + 1);
+      } else {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const refreshTrending = () => {
+    if (trending.length === 0) {
+      handleTrending();
+    } else {
+      setTrending([]);
+      setPage(1);
+      handleTrending();
+    }
+  };
 
   useEffect(() => {
-    const handleTrending = async () => {
-      try {
-        const { data } = await axios.get(`trending/${category}/${duration}`);
-        setTrending(data.results);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    handleTrending();
+    refreshTrending();
   }, [category, duration]);
 
   function handleCategory(value) {
@@ -31,39 +52,54 @@ export default function Trending() {
   }
 
   return trending.length > 0 ? (
-    <div className="h-screen w-screen overflow-hidden overflow-y-auto">
-      <Link
-        to="/"
-        className="flex cursor-pointer items-center gap-1.5 px-8 pt-4 text-purple-600 transition-colors duration-300 hover:text-purple-700"
-      >
-        <TiArrowBack /> Back to Home
-      </Link>
-      <div className="flex items-center justify-between px-8 py-4">
-        <h2 className="text-xl font-semibold text-zinc-200">Trending</h2>
+    <InfiniteScroll
+      dataLength={trending.length}
+      next={handleTrending}
+      hasMore={hasMore}
+      loader={
+        <div className="">
+          <h4 className="text-center text-zinc-400">Loading...</h4>
+        </div>
+      }
+      scrollThreshold={0.8}
+      style={{ overflow: "visible" }}
+    >
+      <div className="min-h-screen w-full overflow-x-hidden">
+        <Link
+          to="/"
+          className="flex items-center gap-2 px-8 pt-4 text-sm text-zinc-400 transition-all hover:text-white"
+        >
+          <TiArrowBack className="text-lg" />
+          Back to Home
+        </Link>
 
-        <div className="flex gap-4">
-          {/* CATEGORY */}
-          <SelectDropdown
-            value={category}
-            onChangeSelect={handleCategory}
-            options={["all", "movie", "tv"]}
-          />
+        <div className="sticky top-0 z-10 flex items-center justify-between bg-zinc-900/80 px-8 py-4 backdrop-blur-md">
+          <h2 className="text-xl font-semibold text-zinc-100">Trending</h2>
+          <div className="flex gap-4">
+            <SelectDropdown
+              value={category}
+              onChangeSelect={handleCategory}
+              options={["all", "movie", "tv"]}
+            />
+            <SelectDropdown
+              value={duration}
+              onChangeSelect={handleDuration}
+              options={["day", "week"]}
+            />
+          </div>
+        </div>
 
-          {/* DURATION */}
-          <SelectDropdown
-            value={duration}
-            onChangeSelect={handleDuration}
-            options={["day", "week"]}
-          />
+        <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {trending.map((item) => (
+            <Card
+              item={item}
+              key={item.id + Math.random()}
+              type="trendingCard"
+            />
+          ))}
         </div>
       </div>
-
-      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3">
-        {trending.map((item) => (
-          <Card item={item} key={item.id} type="trendingCard" />
-        ))}
-      </div>
-    </div>
+    </InfiniteScroll>
   ) : (
     <p className="mx-auto max-w-2xl rounded-xl p-20 text-center text-xl font-medium text-zinc-200">
       No trending movies available

@@ -27,7 +27,7 @@ export default function TopNav() {
   };
 
   return (
-    <header className="h-16 flex items-center bg-transparent">
+    <header className="sticky top-0 z-60 flex h-16 items-center justify-between bg-zinc-900/80 backdrop-blur-md">
       <form className="mx-auto w-full max-w-2xl px-2">
         <div className="relative">
           {/* search icon */}

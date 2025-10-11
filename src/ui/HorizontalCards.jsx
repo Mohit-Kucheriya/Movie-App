@@ -2,7 +2,7 @@ import Card from "./Card";
 
 export default function HorizontalCards({ data, title = "Trending" }) {
   return (
-    <section className="w-full px-4 py-4">
+    <section className="w-full p-4 pb-0">
       {/* Section Heading */}
       <h2 className="mb-4 text-xl font-semibold text-zinc-200">{title}</h2>
 

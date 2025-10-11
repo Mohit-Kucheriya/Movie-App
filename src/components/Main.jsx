@@ -36,7 +36,7 @@ export default function Main() {
   }, []);
 
   return (
-    <main className="row-span-2 overflow-y-auto">
+    <main className="row-span-2 w-full overflow-y-scroll">
       <TopNav />
       <Header data={wallpaper} />
       <HorizontalCards data={trending} />

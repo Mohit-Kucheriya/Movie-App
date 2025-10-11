@@ -26,7 +26,7 @@ export default function Header({ data }) {
   };
 
   return (
-    <div className="group relative h-92 w-full overflow-hidden">
+    <div className="group relative h-9/12 w-full overflow-hidden">
       {/* Background Image Layer */}
       <div className="absolute inset-0">
         <img
