@@ -4,7 +4,7 @@ export default function SelectDropdown({ value, onChangeSelect, options }) {
       <select
         value={value}
         onChange={(e) => onChangeSelect(e.target.value)}
-        className="cursor-pointer appearance-none rounded-lg border-0 bg-zinc-800 px-4 py-2 pr-10 text-sm text-zinc-100 transition-all duration-200 outline-none hover:bg-zinc-700 focus:bg-zinc-700 focus:ring-0 "
+        className="cursor-pointer appearance-none rounded-lg border-0 bg-zinc-800 px-4 py-2 pr-10 text-sm text-zinc-100 transition-all duration-200 outline-none hover:bg-zinc-700 focus:bg-zinc-700 focus:ring-0"
         style={{
           WebkitAppearance: "none",
           MozAppearance: "none",

@@ -27,9 +27,9 @@ export default function SideNav() {
         </h2>
         <div className="flex flex-col gap-3 text-zinc-300">
           <SideNavLink text="Trending" icon={<RiFireFill />} to="/trending" />
-          <SideNavLink text="Popular" icon={<RiMagicFill />} />
-          <SideNavLink text="Movies" icon={<RiMovie2Fill />} />
-          <SideNavLink text="Tv Shows" icon={<RiTvFill />} />
+          <SideNavLink text="Popular" icon={<RiMagicFill />} to="/popular" />
+          <SideNavLink text="Movies" icon={<RiMovie2Fill />} to="/movie" />
+          <SideNavLink text="Tv Shows" icon={<RiTvFill />} to="/tv" />
           <SideNavLink text="People" icon={<RiGroupFill />} />
         </div>
         <h2 className="mt-6 mb-3 text-xl font-medium text-zinc-400">
