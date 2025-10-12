@@ -30,7 +30,7 @@ export default function SideNav() {
           <SideNavLink text="Popular" icon={<RiMagicFill />} to="/popular" />
           <SideNavLink text="Movies" icon={<RiMovie2Fill />} to="/movie" />
           <SideNavLink text="Tv Shows" icon={<RiTvFill />} to="/tv" />
-          <SideNavLink text="People" icon={<RiGroupFill />} />
+          <SideNavLink text="People" icon={<RiGroupFill />} to="/people" />
         </div>
         <h2 className="mt-6 mb-3 text-xl font-medium text-zinc-400">
           Website Information

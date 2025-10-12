@@ -25,3 +25,10 @@ export async function fetchTv(filters, page) {
   const { data } = await axios.get(`/tv/${category}?page=${page}`);
   return data.results;
 }
+
+export async function fetchPeople(filters, page) {
+  const { data } = await axios.get(`/person/popular?page=${page}`);
+  console.log(data);
+
+  return data.results;
+}

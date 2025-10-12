@@ -21,6 +21,8 @@ export default function InfiniteList({
     ),
   );
 
+  const { category } = filters;
+
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -69,23 +71,30 @@ export default function InfiniteList({
         </Link>
 
         <div className="sticky top-0 z-10 flex items-center justify-between bg-zinc-900/80 px-8 py-4 backdrop-blur-md">
-          <h2 className="text-xl font-semibold text-zinc-100">{title}</h2>
+          <h2 className="text-xl font-semibold text-zinc-100">
+            {title}{" "}
+            {category && (
+              <span className="text-sm text-zinc-400">({category})</span>
+            )}
+          </h2>
 
-          <div className="flex gap-4">
-            {filtersConfig.map(({ name, options }) => (
-              <SelectDropdown
-                key={name}
-                value={filters[name]}
-                onChangeSelect={(val) =>
-                  setFilters((f) => ({ ...f, [name]: val }))
-                }
-                options={options}
-              />
-            ))}
-          </div>
+          {filtersConfig.length > 0 && (
+            <div className="flex gap-4">
+              {filtersConfig.map(({ name, options }) => (
+                <SelectDropdown
+                  key={name}
+                  value={filters[name]}
+                  onChangeSelect={(val) =>
+                    setFilters((f) => ({ ...f, [name]: val }))
+                  }
+                  options={options}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <Card item={item} key={item.id + Math.random()} type={cardType} />
           ))}
