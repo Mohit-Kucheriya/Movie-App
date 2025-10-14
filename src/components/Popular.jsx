@@ -10,6 +10,7 @@ export default function Trending() {
         { name: "category", value: "movie", options: ["movie", "tv"] },
       ]}
       cardType="trendingCard"
+      
     />
   );
 }

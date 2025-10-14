@@ -8,6 +8,7 @@ export default function Trending() {
       fetchData={fetchPeople}
       filtersConfig={[]}
       cardType="peopleCard"
+      detailsTitle="person"
     />
   );
 }

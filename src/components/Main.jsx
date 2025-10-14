@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "../utils/axios";
 import TopNav from "./TopNav";
 import Header from "../ui/Header";
 import HorizontalCards from "../ui/HorizontalCards";
+import { fetchTrendingAll } from "../utils/api";
 
 export default function Main() {
   const [wallpaper, setWallpaper] = useState(null);
@@ -11,7 +11,8 @@ export default function Main() {
   useEffect(() => {
     const handleWallpaper = async () => {
       try {
-        const { data } = await axios.get(`trending/all/day`);
+        const data = await fetchTrendingAll();
+
         let randomWallpaperData =
           data.results[Math.floor(Math.random() * data.results.length)];
         setWallpaper(randomWallpaperData);
@@ -26,7 +27,7 @@ export default function Main() {
   useEffect(() => {
     const handleTrending = async () => {
       try {
-        const { data } = await axios.get(`trending/all/day`);
+        const data = await fetchTrendingAll();
         setTrending(data.results);
       } catch (error) {
         console.log(error.message);
@@ -36,7 +37,10 @@ export default function Main() {
   }, []);
 
   return (
-    <main className="row-span-2 w-full overflow-y-scroll">
+    <main
+      id="mainScroll"
+      className="row-span-2 min-h-0 w-full overflow-x-hidden overflow-y-auto"
+    >
       <TopNav />
       <Header data={wallpaper} />
       <HorizontalCards data={trending} />

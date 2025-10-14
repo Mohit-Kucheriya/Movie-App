@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RiSearchLine, RiCloseLargeFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import axios from "../utils/axios";
+import { fetchSearch } from "../utils/api";
 import No_Image_Available from "/No_Image_Available.jpg";
 
 export default function TopNav() {
@@ -13,8 +13,8 @@ export default function TopNav() {
     const handleSearch = async () => {
       if (!query.trim()) return setResults([]);
       try {
-        const { data } = await axios.get(`/search/movie?query=${query}`);
-        setResults(data.results);
+        const data = await fetchSearch(query);
+        setResults(data);
       } catch (error) {
         console.log(error);
       }
@@ -41,7 +41,7 @@ export default function TopNav() {
             onChange={(e) => setQuery(e.target.value)}
             type="text"
             placeholder="Search movies, actors, genres..."
-            className="w-full rounded-md py-2 pr-12 pl-12 text-zinc-100 placeholder-zinc-400 transition-shadow outline-none focus:shadow-[0_4px_18px_rgba(2,6,23,0.6)]"
+            className="w-full rounded-lg py-2 pr-12 pl-12 text-zinc-100 placeholder-zinc-400 transition-shadow outline-none focus:shadow-[0_4px_18px_rgba(2,6,23,0.6)]"
           />
 
           {/* clear button */}
@@ -61,6 +61,7 @@ export default function TopNav() {
               <div className="flex flex-col divide-y divide-zinc-700">
                 {results.map((result) => (
                   <Link
+                    to={`/${result.media_type}/details/${result.id}`}
                     key={result.id}
                     className="group flex items-start gap-4 px-4 py-3 transition-all hover:bg-zinc-700/50"
                   >

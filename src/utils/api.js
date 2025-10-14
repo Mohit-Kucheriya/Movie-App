@@ -1,4 +1,14 @@
-import axios from "../utils/axios";
+import axios from "./axios";
+
+export async function fetchSearch(query) {
+  const { data } = await axios.get(`/search/multi?query=${query}`);
+  return data.results;
+}
+
+export async function fetchTrendingAll() {
+  const { data } = await axios.get(`/trending/all/day`);
+  return data;
+}
 
 export async function fetchTrending(filters, page) {
   const { category, duration } = filters;
@@ -28,7 +38,5 @@ export async function fetchTv(filters, page) {
 
 export async function fetchPeople(filters, page) {
   const { data } = await axios.get(`/person/popular?page=${page}`);
-  console.log(data);
-
   return data.results;
 }

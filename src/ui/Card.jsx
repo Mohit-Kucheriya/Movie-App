@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import No_Image_Available from "/No_Image_Available.jpg";
 
-export default function Card({ item, type }) {
+export default function Card({ item, type, detailsTitle }) {
   const style = {
     trendingCard: {
       card: "group relative overflow-hidden rounded-xl bg-zinc-50 shadow-md transition-transform duration-300",
@@ -24,21 +24,29 @@ export default function Card({ item, type }) {
     },
   };
 
+  const path =
+    (type === "peopleCard" && item.profile_path) ||
+    item.backdrop_path ||
+    item.poster_path ||
+    item.profile_path;
+
+  const imgSrc = path
+    ? `https://image.tmdb.org/t/p/w500${path}`
+    : No_Image_Available;
+
+  const title = item.title || item.original_title || item.name || "Untitled";
+
   return (
-    <Link key={item.id} className={style[type].card}>
+    <Link
+      to={`/${detailsTitle || item.media_type}/details/${item.id}`}
+      className={style[type].card}
+    >
       <div
         className={`${style[type].imgDiv} w-full overflow-hidden rounded-xl`}
       >
-        {/* Image */}
         <img
-          src={
-            item.backdrop_path || item.poster_path || item.profile_path
-              ? `https://image.tmdb.org/t/p/w500${
-                  item.backdrop_path || item.poster_path || item.profile_path
-                }`
-              : No_Image_Available
-          }
-          alt={item.title || item.original_title || item.name}
+          src={imgSrc}
+          alt={title}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
         />
       </div>
@@ -48,13 +56,11 @@ export default function Card({ item, type }) {
 
       {/* Content */}
       <div className="absolute bottom-0 p-3 text-white transition-opacity duration-300 group-hover:opacity-100">
-        <h3 className={`line-clamp-1 ${style[type].h3}`}>
-          {item.title || item.original_title || item.name}
-        </h3>
+        <h3 className={`line-clamp-1 ${style[type].h3}`}>{title}</h3>
 
         {item.overview && (
           <p className={`mt-1 line-clamp-2 text-zinc-300 ${style[type].p}`}>
-            {item.overview || "No overview available"}
+            {item.overview}
           </p>
         )}
       </div>

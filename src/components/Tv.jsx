@@ -14,6 +14,7 @@ export default function Trending() {
         },
       ]}
       cardType="trendingCard"
+      detailsTitle="tv"
     />
   );
 }

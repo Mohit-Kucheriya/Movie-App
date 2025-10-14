@@ -7,9 +7,6 @@
   --font-Parkinsans: "Parkinsans", sans-serif;
 }
 
-body {
-  @apply font-Parkinsans bg-zinc-900 text-zinc-50;
-}
 /* GLOBAL SCROLLBAR STYLE */
 * {
   scrollbar-width: thin; /* Firefox */
@@ -29,4 +26,12 @@ body {
 *::-webkit-scrollbar-thumb {
   background-color: rgba(82, 82, 91, 0.6); /* zinc-700 */
   border-radius: 9999px; /* rounded */
+}
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  @apply font-Parkinsans bg-zinc-900 text-zinc-50;
 }
