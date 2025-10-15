@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const tvSlice = createSlice({
   name: "tv",
   initialState: {
-    info: null,
+    info: {},
   },
   reducers: {
     loadTv: (state, action) => {
       state.info = action.payload;
     },
     removeTv: (state) => {
-      state.info = null;
+      state.info = {};
     },
   },
 });

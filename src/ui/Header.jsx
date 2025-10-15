@@ -1,3 +1,4 @@
+import { LuPlay } from "react-icons/lu";
 import {
   RiCalendarScheduleFill,
   RiMovie2AiFill,
@@ -65,9 +66,12 @@ export default function Header({ data }) {
             </p>
           </div>
 
-          <Link className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:from-purple-700 hover:to-indigo-700">
-            Watch Trailer
-          </Link>
+          <div className="pt-2">
+            <button className="inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:from-purple-700 hover:to-indigo-700">
+              <LuPlay className="text-base" />
+              Watch Trailer
+            </button>
+          </div>
         </div>
       </div>
     </Link>

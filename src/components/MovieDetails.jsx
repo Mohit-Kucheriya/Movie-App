@@ -4,8 +4,9 @@ import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { loadMovieDetails, removeMovie } from "../store/actions/movieAction";
 import { TiArrowBack } from "react-icons/ti";
 import { SiImdb, SiWikidata } from "react-icons/si";
+import { FaImdb } from "react-icons/fa";
 
-import { LuSquareArrowOutUpRight } from "react-icons/lu";
+import { LuPlay, LuSquareArrowOutUpRight } from "react-icons/lu";
 import { BiLogoImdb } from "react-icons/bi";
 import { PiStarFill } from "react-icons/pi";
 import HorizontalCards from "../ui/HorizontalCards";
@@ -23,8 +24,7 @@ export default function MovieDetails() {
     translations,
     recommendations,
     similar,
-  } = useSelector((state) => state.movie.info);
-  console.log(details);
+  } = useSelector((state) => state?.movie?.info);
 
   useEffect(() => {
     dispatch(loadMovieDetails(id));
@@ -50,25 +50,22 @@ export default function MovieDetails() {
       <div className="relative z-10 flex flex-col gap-8 px-4 py-6 sm:px-8 md:px-12 lg:px-20">
         {/* Navbar */}
         <nav className="flex flex-col gap-3 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
-          {/* Back Button */}
           <Link
             to="/movie"
             className="flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-white"
           >
             <TiArrowBack className="text-base" />
-            Back to Movies
+            Back
           </Link>
 
-          {/* External Links */}
           <div className="flex flex-wrap items-center gap-2">
             {details?.homepage && (
               <a
                 href={details?.homepage}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-md bg-red-600/90 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-red-600"
+                className="flex items-center gap-1.5 rounded-md bg-red-600/90 px-3 py-1.5 text-sm font-medium transition-colors hover:bg-red-600"
               >
-                <LuSquareArrowOutUpRight className="text-sm" />
                 Website
               </a>
             )}
@@ -77,9 +74,8 @@ export default function MovieDetails() {
                 href={`https://www.wikidata.org/wiki/${external_ids?.wikidata_id}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-md bg-green-600/90 px-3 py-1.5 text-xs font-medium transition-colors hover:bg-green-600"
+                className="flex items-center gap-1.5 rounded-md bg-green-600/90 px-3 py-1.5 text-sm font-medium transition-colors hover:bg-green-600"
               >
-                <SiWikidata className="text-sm" />
                 Wikidata
               </a>
             )}
@@ -88,9 +84,8 @@ export default function MovieDetails() {
                 href={`https://www.imdb.com/title/${details?.imdb_id}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-md bg-yellow-400 px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-yellow-300"
+                className="flex items-center gap-1.5 rounded-md bg-yellow-400 px-3 py-1.5 text-sm font-semibold text-black transition-colors hover:bg-yellow-300"
               >
-                <SiImdb className="text-sm" />
                 IMDb
               </a>
             )}
@@ -171,8 +166,9 @@ export default function MovieDetails() {
             <div className="flex justify-center pt-2 lg:justify-start">
               <Link
                 to={`${pathname}/trailer`}
-                className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:from-purple-700 hover:to-indigo-700"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:from-purple-700 hover:to-indigo-700"
               >
+                <LuPlay className="text-base" />
                 Watch Trailer
               </Link>
             </div>
@@ -201,7 +197,7 @@ export default function MovieDetails() {
                             src={`https://image.tmdb.org/t/p/w200${p?.logo_path}`}
                             alt={p?.provider_name}
                             title={p?.provider_name}
-                            className="h-11 w-11 rounded-lg shadow-md transition-transform hover:scale-110"
+                            className="h-12 w-12 rounded-lg shadow-md transition-transform hover:scale-110"
                           />
                         ))}
                       </div>
@@ -233,7 +229,7 @@ export default function MovieDetails() {
         </div>
 
         {/* Recommendations  or Similar */}
-        {
+        {(recommendations.length > 0 || similar.length > 0) && (
           <HorizontalCards
             data={recommendations.length > 0 ? recommendations : similar}
             title={
@@ -242,7 +238,7 @@ export default function MovieDetails() {
                 : "Similar Movies"
             }
           />
-        }
+        )}
 
         {/* Trailer */}
         <Outlet />

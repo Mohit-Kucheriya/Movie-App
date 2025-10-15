@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Card from "../ui/Card";
 import SelectDropdown from "../ui/SelectDropdown";
 import { TiArrowBack } from "react-icons/ti";
+import TopNav from "./TopNav";
 
 export default function InfiniteList({
   title,
@@ -13,17 +14,6 @@ export default function InfiniteList({
   detailsTitle,
 }) {
   const [items, setItems] = useState([]);
-
-  const [query, setQuery] = useState("");
-
-  const q = query.toLowerCase();
-  const filteredItems = items.filter((item) => {
-    return (
-      (item?.title ?? "").toLowerCase().includes(q) ||
-      (item?.original_title ?? "").toLowerCase().includes(q) ||
-      (item?.name ?? "").toLowerCase().includes(q)
-    );
-  });
 
   const [filters, setFilters] = useState(
     filtersConfig.reduce(
@@ -69,13 +59,14 @@ export default function InfiniteList({
     <div className="w-full overflow-x-hidden">
       <Link
         to="/"
-        className="flex items-center gap-2 px-8 pt-4 text-sm font-medium text-zinc-400 transition-all hover:text-white"
+        className="flex items-center gap-2 p-4 px-8 text-sm font-medium text-zinc-400 transition-all hover:text-white sm:pt-4"
       >
         <TiArrowBack className="text-lg" />
         Back to Home
       </Link>
 
-      <div className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-4 bg-zinc-900/80 px-8 py-4 backdrop-blur-md transition-all duration-300">
+      {/* Title, TopNav, and Filters */}
+      <div className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-4 bg-zinc-900/80 px-8 backdrop-blur-md transition-all duration-300">
         <h2 className="text-xl font-semibold text-zinc-100">
           {title}{" "}
           {category && (
@@ -84,13 +75,7 @@ export default function InfiniteList({
         </h2>
 
         <div className="min-w-0 basis-full sm:basis-auto">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            type="text"
-            className="w-full rounded-lg bg-zinc-800 px-4 py-2 text-zinc-100 placeholder-zinc-400 transition-shadow outline-none focus:shadow-[0_4px_18px_rgba(2,6,23,0.6)] sm:w-[clamp(16rem,40vw,32rem)]"
-            placeholder="Search"
-          />
+          <TopNav />
         </div>
 
         {filtersConfig.length > 0 && (
@@ -121,7 +106,7 @@ export default function InfiniteList({
         style={{ overflow: "visible" }}
       >
         <div className="grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredItems.map((item, index) => (
+          {items.map((item, index) => (
             <Card
               item={item}
               key={item.id + index}
