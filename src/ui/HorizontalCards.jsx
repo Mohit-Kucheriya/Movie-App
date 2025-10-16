@@ -1,10 +1,26 @@
 import Card from "./Card";
+import SelectDropdown from "./SelectDropdown";
 
-export default function HorizontalCards({ data, title = "Trending" }) {
+export default function HorizontalCards({
+  data,
+  title = "Trending",
+  value,
+  onChangeSelect,
+  options,
+}) {
   return (
     <section className="w-full p-4 pb-0">
       {/* Section Heading */}
-      <h2 className="mb-4 text-xl font-semibold text-zinc-200">{title}</h2>
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="text-xl font-semibold text-zinc-200">{title}</h2>
+        {value && (
+          <SelectDropdown
+            value={value}
+            onChangeSelect={onChangeSelect}
+            options={options}
+          />
+        )}
+      </div>
 
       {/* Scrollable Row */}
       <div className="flex gap-6 overflow-x-auto pb-4">

@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
-import { loadTvDetails, removeTv } from "../store/actions/tvAction";
-import { TiArrowBack } from "react-icons/ti";
-import { SiImdb, SiWikidata } from "react-icons/si";
-import { FaImdb } from "react-icons/fa";
 
-import { LuPlay, LuSquareArrowOutUpRight } from "react-icons/lu";
-import { BiLogoImdb } from "react-icons/bi";
+import { loadTvDetails, removeTv } from "../store/actions/tvAction";
+
+import { TiArrowBack } from "react-icons/ti";
+import { LuPlay } from "react-icons/lu";
 import { PiStarFill } from "react-icons/pi";
 import HorizontalCards from "../ui/HorizontalCards";
 
@@ -24,6 +22,7 @@ export default function TvDetails() {
     recommendations,
     similar,
   } = useSelector((state) => state?.tv?.info);
+  console.log(details);
 
   useEffect(() => {
     dispatch(loadTvDetails(id));
@@ -156,7 +155,7 @@ export default function TvDetails() {
             {details?.overview && (
               <div className="">
                 <h2 className="mb-1 text-lg font-semibold">Overview</h2>
-                <p className="max-w-3xl text-sm leading-relaxed text-zinc-300 sm:text-base">
+                <p className="max-w-3xl text-justify text-sm leading-relaxed text-zinc-300 sm:text-base">
                   {details.overview}
                 </p>
               </div>
@@ -196,7 +195,7 @@ export default function TvDetails() {
                             src={`https://image.tmdb.org/t/p/w200${p?.logo_path}`}
                             alt={p?.provider_name}
                             title={p?.provider_name}
-                            className="h-12 w-12 rounded-lg shadow-md transition-transform hover:scale-110"
+                            className="h-12 w-12 rounded-lg object-cover shadow-md transition-transform hover:scale-110"
                           />
                         ))}
                       </div>

@@ -4,9 +4,10 @@ import {
   RiMovie2AiFill,
   RiTvFill,
 } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header({ data }) {
+  const navigate = useNavigate();
   if (!data) return null;
 
   const {
@@ -19,6 +20,7 @@ export default function Header({ data }) {
     release_date,
     first_air_date,
     media_type,
+    id,
   } = data;
 
   const media_type_icons = {
@@ -26,22 +28,24 @@ export default function Header({ data }) {
     tv: <RiTvFill className="text-base text-yellow-300" />,
   };
 
+  const onTrailerClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/${media_type}/details/${id}/trailer`);
+  };
+
   return (
-    <Link to={`/${media_type}/details/${data.id}`}>
+    <Link to={`/${media_type}/details/${id}`}>
       <div className="group relative h-9/12 w-full overflow-hidden">
-        {/* Background Image Layer */}
         <div className="absolute inset-0">
           <img
             src={`https://image.tmdb.org/t/p/original${backdrop_path || poster_path}`}
             alt={title || original_title || name}
             className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
           />
-
-          {/* Overlay (for text readability) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
         </div>
 
-        {/* Text Content Layer */}
         <div className="relative z-10 flex h-full max-w-xl flex-col items-start justify-end p-8">
           <h1 className="mb-3 text-3xl font-semibold drop-shadow-lg">
             {title || original_title || name}
@@ -67,7 +71,11 @@ export default function Header({ data }) {
           </div>
 
           <div className="pt-2">
-            <button className="inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:from-purple-700 hover:to-indigo-700">
+            <button
+              onClick={onTrailerClick}
+              className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium shadow-md transition-all duration-300 hover:from-purple-700 hover:to-indigo-700"
+              type="button"
+            >
               <LuPlay className="text-base" />
               Watch Trailer
             </button>

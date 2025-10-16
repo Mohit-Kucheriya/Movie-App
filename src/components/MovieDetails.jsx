@@ -157,7 +157,7 @@ export default function MovieDetails() {
             {details?.overview && (
               <div className="">
                 <h2 className="mb-1 text-lg font-semibold">Overview</h2>
-                <p className="max-w-3xl text-sm leading-relaxed text-zinc-300 sm:text-base">
+                <p className="max-w-3xl text-justify text-sm leading-relaxed text-zinc-300 sm:text-base">
                   {details.overview}
                 </p>
               </div>

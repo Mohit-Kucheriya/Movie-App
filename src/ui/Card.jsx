@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import No_Image_Available from "/No_Image_Available.jpg";
 
 export default function Card({ item, type, detailsTitle }) {
@@ -34,6 +34,8 @@ export default function Card({ item, type, detailsTitle }) {
     ? `https://image.tmdb.org/t/p/w500${path}`
     : No_Image_Available;
 
+  const isNoImage = imgSrc === No_Image_Available;
+
   const title = item.title || item.original_title || item.name || "Untitled";
 
   return (
@@ -47,12 +49,17 @@ export default function Card({ item, type, detailsTitle }) {
         <img
           src={imgSrc}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+          className={`h-full w-full object-cover transition-transform duration-300 ${
+            isNoImage ? "" : "group-hover:scale-110"
+          }`}
         />
-      </div>
 
-      {/* Overlay (for text readability) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+        {isNoImage ? (
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+        )}
+      </div>
 
       {/* Content */}
       <div className="absolute bottom-0 p-3 text-white transition-opacity duration-300 group-hover:opacity-100">

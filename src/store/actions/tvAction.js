@@ -40,3 +40,4 @@ export const loadTvDetails = (id) => async (dispatch, getState) => {
     console.log(error.message);
   }
 };
+
