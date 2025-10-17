@@ -24,6 +24,7 @@ export default function MovieDetails() {
     translations,
     recommendations,
     similar,
+    credits,
   } = useSelector((state) => state?.movie?.info);
 
   useEffect(() => {
@@ -227,6 +228,15 @@ export default function MovieDetails() {
             </div>
           )}
         </div>
+
+        {/* Cast */}
+        {credits?.cast?.length > 0 && (
+          <HorizontalCards
+            data={credits.cast}
+            title="Cast"
+            detailsTitle="person"
+          />
+        )}
 
         {/* Recommendations  or Similar */}
         {(recommendations.length > 0 || similar.length > 0) && (

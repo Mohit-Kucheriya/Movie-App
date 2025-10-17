@@ -7,6 +7,8 @@ export default function HorizontalCards({
   value,
   onChangeSelect,
   options,
+  parentId,
+  detailsTitle,
 }) {
   return (
     <section className="w-full p-4 pb-0">
@@ -25,7 +27,13 @@ export default function HorizontalCards({
       {/* Scrollable Row */}
       <div className="flex gap-6 overflow-x-auto pb-4">
         {data.map((item) => (
-          <Card item={item} key={item.id} type="horizontalCard" />
+          <Card
+            item={item}
+            key={item.id}
+            type="horizontalCard"
+            parentId={parentId}
+            detailsTitle={detailsTitle}
+          />
         ))}
       </div>
     </section>

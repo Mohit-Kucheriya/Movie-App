@@ -10,6 +10,9 @@ import TvDetails from "./components/TvDetails";
 import PeopleDetails from "./components/PeopleDetails";
 import Trailer from "./components/Trailer";
 import NotFoundPage from "./components/NotFoundPage";
+import SeasonDetails from "./components/SeasonDetails";
+import AboutPage from "./components/AboutPage";
+import EpisodeDetails from "./components/EpisodeDetails";
 
 export default function App() {
   return (
@@ -29,8 +32,20 @@ export default function App() {
           <Route path="/tv/details/:id/trailer" element={<Trailer />} />
         </Route>
 
+        <Route
+          path="/tv/:id/season/:seasonNumber"
+          element={<SeasonDetails />}
+        />
+
+        <Route
+          path="/tv/:tvId/season/:seasonNumber/episode/:episodeNumber"
+          element={<EpisodeDetails />}
+        />
+
         <Route path="/people" element={<People />} />
         <Route path="/person/details/:id" element={<PeopleDetails />} />
+
+        <Route path="/about" element={<AboutPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

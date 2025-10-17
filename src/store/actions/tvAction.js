@@ -12,6 +12,7 @@ export const loadTvDetails = (id) => async (dispatch, getState) => {
       axios.get(`/tv/${id}/videos`),
       axios.get(`/tv/${id}/watch/providers`),
       axios.get(`/tv/${id}/translations`),
+      axios.get(`/tv/${id}/credits`),
     ]);
 
     const [
@@ -22,6 +23,7 @@ export const loadTvDetails = (id) => async (dispatch, getState) => {
       videos,
       watchProviders,
       translations,
+      credits,
     ] = res.map((r) => r);
 
     const ultimateData = {
@@ -33,6 +35,7 @@ export const loadTvDetails = (id) => async (dispatch, getState) => {
         videos.data.results.find((item) => item.type === "Trailer") || null,
       watchProviders: watchProviders.data.results?.IN ?? null,
       translations: translations.data.translations.map((t) => t.name) || null,
+      credits: credits?.data,
     };
 
     dispatch(loadTv(ultimateData));
@@ -40,4 +43,3 @@ export const loadTvDetails = (id) => async (dispatch, getState) => {
     console.log(error.message);
   }
 };
-

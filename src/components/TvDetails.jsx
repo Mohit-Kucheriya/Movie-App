@@ -21,8 +21,8 @@ export default function TvDetails() {
     translations,
     recommendations,
     similar,
+    credits,
   } = useSelector((state) => state?.tv?.info);
-  console.log(details);
 
   useEffect(() => {
     dispatch(loadTvDetails(id));
@@ -226,9 +226,22 @@ export default function TvDetails() {
           )}
         </div>
 
+        {/* Cast */}
+        {credits?.cast?.length > 0 && (
+          <HorizontalCards
+            data={credits.cast}
+            title="Cast"
+            detailsTitle="person"
+          />
+        )}
+
         {/*  Seasons */}
         {details?.seasons?.length > 0 && (
-          <HorizontalCards data={details.seasons} title="Seasons" />
+          <HorizontalCards
+            data={details.seasons}
+            title="Seasons"
+            parentId={details.id}
+          />
         )}
 
         {/* Recommendations  or Similar */}

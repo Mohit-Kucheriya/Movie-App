@@ -36,7 +36,11 @@ export default function SideNav() {
           Website Information
         </h2>
         <div className="flex flex-col gap-3 text-zinc-300">
-          <SideNavLink text="About Movieverse" icon={<RiInformation2Fill />} />
+          <SideNavLink
+            text="About Movieverse"
+            icon={<RiInformation2Fill />}
+            to="/about"
+          />
           <SideNavLink text="Contact Us" icon={<RiPhoneFill />} />
         </div>
       </nav>
