@@ -3,12 +3,10 @@ import { loadEpisode } from "../reducers/episodeSlice";
 import axios from "../../utils/axios";
 
 export const loadEpisodeDetails =
-  (tvId, seasonNumber, episodeNumber) => async (dispatch, getState) => {
+  (id, seasonNumber, episodeNumber) => async (dispatch, getState) => {
     try {
       const res = await Promise.all([
-        axios.get(
-          `/tv/${tvId}/season/${seasonNumber}/episode/${episodeNumber}`,
-        ),
+        axios.get(`/tv/${id}/season/${seasonNumber}/episode/${episodeNumber}`),
       ]);
 
       const [details] = res.map((r) => r);

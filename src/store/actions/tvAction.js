@@ -31,10 +31,14 @@ export const loadTvDetails = (id) => async (dispatch, getState) => {
       external_ids: external_ids.data,
       recommendations: recommendations.data.results,
       similar: similar.data.results,
-      videos:
-        videos.data.results.find((item) => item.type === "Trailer") || null,
+      videos: videos.data.results.find(
+        (item) =>
+          item.type === "Teaser" ||
+          item.type === "Trailer" ||
+          item.type === "Clip",
+      ),
       watchProviders: watchProviders.data.results?.IN ?? null,
-      translations: translations.data.translations.map((t) => t.name) || null,
+      translations: translations.data.translations.map((t) => t.name),
       credits: credits?.data,
     };
 

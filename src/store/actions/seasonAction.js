@@ -20,7 +20,6 @@ export const loadSeasonDetails =
         credits: credits?.data,
         external_ids: external_ids?.data,
       };
-      console.log(ultimateData);
 
       dispatchEvent(loadSeason(ultimateData));
     } catch (error) {

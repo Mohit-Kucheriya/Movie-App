@@ -38,7 +38,7 @@ export default function App() {
         />
 
         <Route
-          path="/tv/:tvId/season/:seasonNumber/episode/:episodeNumber"
+          path="/tv/:id/season/:seasonNumber/episode/:episodeNumber"
           element={<EpisodeDetails />}
         />
 

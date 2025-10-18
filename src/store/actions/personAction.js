@@ -17,7 +17,6 @@ export const loadPersonDetails = (id) => async (dispatch, getState) => {
       external_ids: external_ids?.data,
       combined_credits: combined_credits?.data,
     };
-    console.log(ultimateData);
 
     dispatch(loadPerson(ultimateData));
   } catch (error) {
